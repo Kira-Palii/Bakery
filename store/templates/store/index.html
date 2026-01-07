@@ -1,19 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Список товарів</title>
-</head>
-<body>
-    <h1>Наші товари</h1>
-    <ul>
+{% extends 'store/layout.html' %}
+
+{% block title %}List of products{% endblock %}
+
+{% block content %}
+    <h1>Our products</h1>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Category</th>
+        </tr>
         {% for item in products %}
-            <li>
-                <strong>{{ item.title }}</strong> — {{ item.price }} $
-                (Категорія: {{ item.category.title }})
-            </li>
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.price }} $</td>
+            <td>{{ item.category.title }}</td>
+        </tr>
         {% endfor %}
-    </ul>
-</body>
-</html>
+    </table>
+{% endblock %}

@@ -1,0 +1,47 @@
+body 
+{
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 20px;
+}
+h1 
+{
+    color: #503d2c;
+}
+nav ul 
+{
+    list-style-type: none;
+    padding: 0;
+}
+nav ul li 
+{
+    display: inline;
+    margin-right: 15px;
+}
+nav a 
+{
+    text-decoration: none;
+    font-weight: bold;
+    color: #aa7526;
+}
+table 
+{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+td, th 
+{
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th 
+{
+    background-color: #aa7526;
+    color: white;
+}
+footer
+{
+    margin-top: 30px;
+}

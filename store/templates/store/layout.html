@@ -1,0 +1,29 @@
+{% load static %} <!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My store{% endblock %}</title> <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+</head>
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'products' %}">Product</a></li>
+            <li><a href="{% url 'categories' %}">Category</a></li>
+        </ul>
+    </nav>
+
+    <hr>
+
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <hr>
+    <footer>
+        <center><p>&copy; 2026 Kira Palii</p></center>
+    </footer>
+
+</body>
+</html>

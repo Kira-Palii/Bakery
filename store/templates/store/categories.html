@@ -1,0 +1,12 @@
+{% extends 'store/layout.html' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block content %}
+    <h1>Product categories</h1>
+    <ul>
+        {% for cat in categories %}
+            <li>{{ cat.title }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
