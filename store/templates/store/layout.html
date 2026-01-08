@@ -17,10 +17,15 @@
                 <ul class="nav-links">
                     <li><a href="{% url 'products' %}">Товари</a></li>
                     <li><a href="{% url 'categories' %}">Категорії</a></li>
-                    
                     {% if user.is_authenticated %}
-                        <li><a href="{% url 'profile' %}">Профіль ({{ user.username }})</a></li>
+                        {% if user.is_superuser %}
+                            <li><a href="{% url 'admin_order_list' %}">Замовлення</a></li>
+                            <li><a href="{% url 'profile' %}">Профіль</a></li>
                         {% else %}
+                            <li><a href="{% url 'cart_view' %}">Кошик</a></li>
+                            <li><a href="{% url 'profile' %}">Профіль</a></li>
+                        {% endif %}
+                    {% else %}
                         <li><a href="{% url 'login' %}">Вхід</a></li>
                         <li><a href="{% url 'register' %}">Реєстрація</a></li>
                     {% endif %}

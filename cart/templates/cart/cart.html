@@ -1,0 +1,50 @@
+{% extends "store/layout.html" %}
+
+{% block content %}
+<h2>Ваш кошик</h2>
+
+{% if cart_items %}
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>Товар</th>
+                <th>Ціна</th>
+                <th>К-сть</th>
+                <th>Сума</th>
+                <th>Дії</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.title }}</td>
+                <td>{{ item.product.price }} грн</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.total_price }} грн</td>
+                <td>
+                    <a href="{% url 'remove_from_cart' item.id %}" style="color: red;">Видалити</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="text-align: right; margin-top: 20px;">
+        <h3>Всього до сплати: {{ total_price }} грн</h3>
+    </div>
+
+    <div class="card" style="margin-top: 30px; background: #f9f9f9;">
+        <h3>Оформлення замовлення</h3>
+        <form action="{% url 'checkout' %}" method="post">
+            {% csrf_token %}
+            <label>Адреса доставки:</label>
+            <input type="text" name="address" required placeholder="Місто, вулиця, будинок..." style="width: 100%; padding: 10px; margin-bottom: 10px;">
+            <button type="submit" class="btn-add">Підтвердити замовлення</button>
+        </form>
+    </div>
+
+{% else %}
+    <p>Ваш кошик порожній. <a href="{% url 'products' %}">Перейти до товарів</a></p>
+{% endif %}
+
+{% endblock %}

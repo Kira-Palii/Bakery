@@ -1,0 +1,50 @@
+{% extends "store/layout.html" %}
+
+{% block content %}
+<h2>Список замовлень клієнтів</h2>
+
+{% if orders %}
+    <table class="styled-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Клієнт</th>
+                <th>Адреса</th>
+                <th>Товари</th>
+                <th>Сума</th>
+                <th>Дія</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>
+                    <strong>{{ order.user.username }}</strong><br>
+                    <small>{{ order.created_at|date:"d.m.Y H:i" }}</small>
+                </td>
+                <td>{{ order.address }}</td>
+                <td>
+                    <ul style="list-style: none; padding: 0; margin: 0; font-size: 14px;">
+                        {% for item in order.items.all %}
+                            <li>• {{ item.product_title }} ({{ item.quantity }} шт.)</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td style="font-weight: bold;">{{ order.total_cost }} грн</td>
+                <td>
+                    <a href="{% url 'complete_order' order.id %}" 
+                       class="btn-add" 
+                       style="background-color: #27ae60; padding: 8px 12px; font-size: 14px;">
+                       Виконати
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Активних замовлень немає.</p>
+{% endif %}
+
+{% endblock %}
