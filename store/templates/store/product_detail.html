@@ -1,0 +1,17 @@
+{% extends 'store/layout.html' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ product.title }}</h1>
+    <div class="detail">
+        <p><strong>Ціна:</strong> {{ product.price }} грн</p>
+        <p><strong>Категорія:</strong> {{ product.category.title }}</p>
+        <p><strong>Опис:</strong> {{ product.description }}</p>
+    </div>
+    <hr style="margin-bottom: 15px;">
+    <div class="detail">
+        <a href="{% url 'product_update' product.slug %}">Редагувати</a> | 
+        <a href="{% url 'products' %}">Назад до списку</a>        
+    </div>
+{% endblock %}

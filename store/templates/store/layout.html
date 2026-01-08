@@ -1,28 +1,36 @@
-{% load static %} <!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My store{% endblock %}</title> <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Мій Магазин{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'store/css/style.css' %}">
 </head>
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="{% url 'products' %}">Product</a></li>
-            <li><a href="{% url 'categories' %}">Category</a></li>
-        </ul>
-    </nav>
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="{% url 'products' %}" class="nav-brand">Bakery Shop</a>
+                <ul class="nav-links">
+                    <li><a href="{% url 'products' %}">Товари</a></li>
+                    <li><a href="{% url 'categories' %}">Категорії</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <hr>
+    <main class="container">
+        <div class="card">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
 
-    <div class="content">
-        {% block content %}
-        {% endblock %}
-    </div>
-
-    <hr>
-    <footer>
-        <center><p>&copy; 2026 Kira Palii</p></center>
+    <footer class="main-footer">
+        <p>&copy; 2026 Палій Кіра. Всі права захищено.</p>
     </footer>
 
 </body>

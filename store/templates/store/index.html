@@ -1,21 +1,61 @@
 {% extends 'store/layout.html' %}
 
-{% block title %}List of products{% endblock %}
+{% block title %}Список Товарів{% endblock %}
 
 {% block content %}
-    <h1>Our products</h1>
-    <table>
+    <h1>Наші Товари</h1>
+    
+    <a href="{% url 'product_create' %}" class="btn-add">+ Додати новий товар</a>
+    <br><br>
+
+    <table class="styled-table">
         <tr>
-            <th>Product</th>
-            <th>Price</th>
-            <th>Category</th>
+            <th>Назва</th>
+            <th>Ціна</th>
+            <th>Категорія</th>
+            <th>Дії</th>
         </tr>
-        {% for item in products %}
+        {% for item in page_obj %}
         <tr>
             <td>{{ item.title }}</td>
-            <td>{{ item.price }} $</td>
+            <td>{{ item.price }} грн</td>
             <td>{{ item.category.title }}</td>
+            <td>
+                <a href="{% url 'product_detail' item.slug %}">Перегляд</a> |
+                <a href="{% url 'product_update' item.slug %}">Редагувати</a> |
+                <a href="{% url 'product_delete' item.slug %}">Видалити</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
+
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="page-btn">&laquo; Перша</a>
+        {% else %}
+            <span class="page-btn hidden">&laquo; Перша</span>
+        {% endif %}
+
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-btn">Попередня</a>
+        {% else %}
+            <span class="page-btn hidden">Попередня</span>
+        {% endif %}
+
+        <span class="page-info">
+            Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="page-btn">Наступна</a>
+        {% else %}
+            <span class="page-btn hidden">Наступна</span>
+        {% endif %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="page-btn">Остання &raquo;</a>
+        {% else %}
+            <span class="page-btn hidden">Остання &raquo;</span>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'store/layout.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h2>{{ title }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a href="{% url 'products' %}">Скасувати</a>
+        <button type="submit" style="margin-left: 25px;">Зберегти</button>
+    </form>
+{% endblock %}
