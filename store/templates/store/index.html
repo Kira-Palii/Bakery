@@ -5,7 +5,7 @@
 {% block content %}
     <h1>Наші Товари</h1>
     
-    <a href="{% url 'product_create' %}" class="btn-add">+ Додати новий товар</a>
+    {% if user.is_superuser %}<a href="{% url 'product_create' %}" class="btn-add">+ Додати новий товар</a>{% endif %}
     <br><br>
 
     <table class="styled-table">
@@ -20,10 +20,12 @@
             <td>{{ item.title }}</td>
             <td>{{ item.price }} грн</td>
             <td>{{ item.category.title }}</td>
+
+            
             <td>
-                <a href="{% url 'product_detail' item.slug %}">Перегляд</a> |
-                <a href="{% url 'product_update' item.slug %}">Редагувати</a> |
-                <a href="{% url 'product_delete' item.slug %}">Видалити</a>
+                <a href="{% url 'product_detail' item.slug %}">Перегляд</a>{% if user.is_superuser %}|
+                <a href="{% url 'product_update' item.slug %}">Редагувати</a>|
+                <a href="{% url 'product_delete' item.slug %}">Видалити</a> {% endif %}
             </td>
         </tr>
         {% endfor %}

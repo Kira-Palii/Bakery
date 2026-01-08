@@ -1,0 +1,14 @@
+{% extends "store/layout.html" %}
+{% block content %}
+    <div class="form-content">
+        <h2 style="text-align: center;">Реєстрація</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn-add" type="submit" style="width: 100%;">Створити акаунт</button>
+        </form>
+        <div class="form-footer">
+            Вже є акаунт? <a href="{% url 'login' %}">Увійти</a>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "store/layout.html" %}
+{% block content %}
+
+<div class="profile-container">
+    <div class="profile-card">
+        
+        <div class="profile-sidebar">
+            <div class="avatar-wrapper">
+                <img class="profile-avatar" src="{{ user.profile.image.url }}" alt="Avatar"">
+            </div>
+            <h3 class="profile-name">{{ user.username }}</h2>
+            <p class="profile-email">{{ user.email }}</p>
+            
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn-logout">Вийти з акаунту</button>
+            </form>
+        </div>
+
+        <div class="profile-settings">
+            <h3 class="settings-title">Налаштування профілю</h3>
+            
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="id_username">Ім'я користувача</label>
+                    {{ u_form.username }}
+                    <div class="error-msg">{{ u_form.username.errors }}</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_email">Електронна пошта</label>
+                    {{ u_form.email }}
+                    <div class="error-msg">{{ u_form.email.errors }}</div>
+                </div>
+
+                <div class="form-group">
+                    <label>Змінити аватарку</label>
+                    <div class="custom-file-input">
+                        {{ p_form.image }}
+                    </div>
+                    <small class="hint">Підтримуються формати JPG, PNG, GIF</small>
+                </div>
+
+                <button class="btn-save" type="submit">Зберегти зміни</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
 from .models import Product, Category
 from .forms import ProductForm, CategoryForm
+from django.contrib.auth.decorators import login_required
 
 def product_list(request):
     products_list = Product.objects.all()
@@ -16,6 +17,7 @@ def category_list(request):
     categories = Category.objects.all()
     return render(request, 'store/categories.html', {'categories': categories})
 
+@login_required
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -30,6 +32,7 @@ def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)
     return render(request, 'store/product_detail.html', {'product': product})
 
+@login_required
 def product_update(request, slug):
     product = get_object_or_404(Product, slug=slug)
     if request.method == 'POST':
@@ -41,6 +44,7 @@ def product_update(request, slug):
         form = ProductForm(instance=product)
     return render(request, 'store/product_form.html', {'form': form, 'title': 'Редагувати товар'})
 
+@login_required
 def product_delete(request, slug):
     product = get_object_or_404(Product, slug=slug)
     if request.method == 'POST':
