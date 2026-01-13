@@ -19,9 +19,6 @@ def add_to_cart(request, slug):
     if not created:
         cart_item.quantity += 1
         cart_item.save()
-        messages.info(request, "Кількість товару збільшено.")
-    else:
-        messages.success(request, "Товар додано в кошик.")
     
     return redirect('cart_view')
 
@@ -29,7 +26,6 @@ def add_to_cart(request, slug):
 def remove_from_cart(request, item_id):
     cart_item = get_object_or_404(CartItem, id=item_id, user=request.user)
     cart_item.delete()
-    messages.success(request, "Товар видалено.")
     return redirect('cart_view')
 
 @login_required
@@ -37,7 +33,6 @@ def checkout(request):
     cart_items = CartItem.objects.filter(user=request.user)
     
     if not cart_items.exists():
-        messages.warning(request, "Ваш кошик пустий.")
         return redirect('products')
 
     if request.method == 'POST':
@@ -55,7 +50,6 @@ def checkout(request):
 
         cart_items.delete()
         
-        messages.success(request, f"Замовлення №{order.id} оформлено! Менеджер зв'яжеться з вами.")
         return redirect('products')
         
     return redirect('cart_view')
@@ -76,6 +70,5 @@ def complete_order(request, order_id):
     order = get_object_or_404(Order, id=order_id)
 
     order.delete()
-    
-    messages.success(request, f"Замовлення №{order_id} виконано та видалено з бази.")
+
     return redirect('admin_order_list')
